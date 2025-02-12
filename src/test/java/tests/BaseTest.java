@@ -21,6 +21,7 @@ public class BaseTest {
         options.addArguments("--incognito");
         options.addArguments("--start-maximized");
         options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--user-data-dir=" + System.getProperty("java.io.tmpdir") + "/chrome-profile-" + System.currentTimeMillis());
         open("https://log.finalsurge.com/");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
