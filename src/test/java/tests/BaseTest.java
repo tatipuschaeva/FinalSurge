@@ -1,6 +1,8 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pages.RegistrationPage;
@@ -14,9 +16,16 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-extensions");
+        options.addArguments("--incognito");
+        options.addArguments("--start-maximized");
+        options.addArguments("--remote-allow-origins=*");
         open("https://log.finalsurge.com/");
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        Configuration.browserCapabilities = capabilities;
         Configuration.headless = true;
-        getWebDriver().manage().window().maximize();
         Configuration.timeout = 10000;
         registrationPage = new RegistrationPage();
     }
